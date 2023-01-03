@@ -101,7 +101,7 @@ ggplot() +
                                   hjust=.5,size=20)) +
   ylab('valenced words in episode') +
   labs(title = 'FLEABAG',
-       subtitle = 'emotions per episode',
+       subtitle = 'emotions in each episode',
        caption = 'word emotional valence')
 ggsave('valence_by_episode.png',height=3,width = 4,dpi=300)
 
@@ -133,7 +133,7 @@ ggplot(data=val_ratings) +
         plot.caption = element_text(color='white',family='Inter',
                                     hjust=.5, size = 16)) +
   ylab('mean valence per episode') 
-ggsave('mean_valence.png',height=2,width = 4,dpi=300)
+ggsave('mean_valence.png',height=1.5,width = 4,dpi=300)
 
 # combine into full 'poster'
 library(magick)
