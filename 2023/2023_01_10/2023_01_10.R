@@ -71,7 +71,7 @@ month_grid$Month <- recode_factor(month_grid$Month, '1'='JAN','2'='FEB','3'='MAR
 
 ggplot() +
   geom_tile(data = month_grid, aes(0.5, 0.5, width = 1, height = 1), fill=NA, stat = "unique") +
-  geom_point(data = month_grid, aes(x, y), color='#000000', size=0.002) +
+  geom_point(data = month_grid, aes(x, y), color='#fffda0', size=0.002) +
   facet_wrap(~ Month, ncol=6, strip.position='top') +
   theme_void() +
   theme(legend.position='',
@@ -79,7 +79,7 @@ ggplot() +
         panel.background = element_rect(fill=NA, color='black'),
         strip.text.x = element_text(size=50, family='mono')) 
 
-ggsave('poisson_temp.png', height = 1.5, width=6)
+ggsave('poisson_temp.png', height = 1.2, width=6)
 
 # combine into full 'poster'
 library(magick)
