@@ -52,4 +52,4 @@ ggplot() +
         ) +
   ylab('Proportion of sentiment')
 
-ggsave('african_lang_sentiments.png', width = 7, height = 3)
+ggsave('african_lang_sentiments.png', width = 7, height = 3, dpi = 300)
