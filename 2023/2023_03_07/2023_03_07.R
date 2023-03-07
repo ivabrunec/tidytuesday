@@ -67,7 +67,7 @@ ggplot() +
         plot.title = element_text(color = 'white', family = 'Righteous', size = 70),
         plot.caption = element_text(color = 'white', family = 'Overpass', size = 20)) +
   labs(title = 'numbats in numbers',
-       caption = 'Locations where numbats were spotted, weighted by number of observations')
+       caption = 'Locations where numbats were spotted, weighted by the proportion of observations')
 
 # save first panel
 ggsave('panel1.png', width = 6, height = 2, dpi = 400)
@@ -96,7 +96,7 @@ ggplot() +
         plot.background = element_rect(fill = '#062405', color=NA),
         strip.text = element_text(color='white', family = 'Righteous', size = 40),
         plot.caption = element_text(color = 'white', family = 'Overpass', size = 20)) +
-  labs(caption = 'Total number of numbats spotted, per year')
+  labs(caption = 'Total number of numbats spotted, per 5-year range')
 
 # save second panel
 ggsave('panel2.png', width = 6, height = 1.5, dpi = 400)
