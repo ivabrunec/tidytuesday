@@ -1,10 +1,18 @@
-# text analysis of 
+# sentiment analysis of shakespeare plays
+# scaling all plays to same span, bag of words display for each scene
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 library(dplyr)
 library(tidytext)
 library(ggplot2)
+library(scico)
+library(showtext)
+
+font_add_google(name = 'Caudex', family = 'caudex')
+font_add_google(name = 'Space Mono', family = 'space')
+showtext_auto()
+
 
 tuesdata <- tidytuesdayR::tt_load('2024-09-17')
 
@@ -122,29 +130,49 @@ assign_grid_coordinates <- function(df) {
 
 assign_random_coordinates <- function(df) {
   df |>
-    group_by(play_title, start, end) |>  # Group by play_title
+    group_by(play_title, start, end) |> 
     mutate(
-      # Randomly assign x values between start and end
       x_position = runif(n(), min = start, max = end),
-      # Randomly assign y values between 0 and 40
-      y_position = runif(n(), min = 20, max = 40)
+      y_position = runif(n(), min = 20, max = 30)
     ) |>
     ungroup()
 }
 
 
 df_with_grid_coords <- assign_random_coordinates(corpus_df)
+df_with_grid_coords$play <- recode(df_with_grid_coords$play_title,
+                                   hamlet = "Hamlet",
+                                   macbeth = "Macbeth",
+                                   romeo_juliet = "Romeo & Juliet")
 
 ggplot(df_with_grid_coords) +
   geom_rect(aes(xmin = start, xmax = end, ymin = 0, ymax = 20,
                 fill = average_sentiment)) +
   geom_text(aes(x = x_position, y = y_position, label = word, color = sentiment),
-            size = 1, hjust = .25) +
-  facet_wrap(~play_title, nrow = 3) +
-  labs(x = "Play Progression", y = "", fill = "Scene") +
-  #theme_minimal() +
-  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank(), panel.grid = element_blank())
+            size = 6, alpha = .5, family = 'space') +
+  facet_wrap(~play, nrow = 3) +
+  scale_fill_scico(palette = 'glasgow') +
+  scale_color_manual(values = c('#be9d1e','#DAD2FF'),
+                     guide = 'none') +
+  labs(x = "Play Progression", y = "", fill = "sentiment") +
+  theme_minimal() +
+  theme(axis.text.y = element_blank(), 
+        axis.ticks.y = element_blank(), 
+        axis.text.x = element_text(color = 'grey90', size = 50, family = 'space'),
+        axis.title.x = element_text(color = 'grey90', size = 70, family = 'space'),
+        legend.title = element_text(color = 'grey90', size = 70, family = 'space'),
+        legend.text = element_text(color = 'grey90', size = 40, family = 'space'),
+        panel.grid = element_blank(),
+        panel.background = element_rect(color=NA, fill = '#1e0c19'),
+        plot.background = element_rect(color=NA, fill='#1e0c19'),
+        text = element_text(color = 'grey90'),
+        strip.text = element_text(color = 'grey90', family = 'caudex', size = 80),
+        legend.position = 'right',
+        plot.title = element_text(family = 'caudex', size = 180),
+        plot.subtitle = element_text(family = 'caudex', size = 60),) +
+  labs(title = "If you can look into the seeds of time",
+       subtitle = "a sentiment analysis of dialogue in three plays by William Shakespeare") 
 
 
-ggsave('temp.png', width = 20, height = 4)
-
+ggsave('shakespeare_plays.png', width = 14, height = 16, dpi = 400)
+  
