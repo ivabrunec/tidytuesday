@@ -149,7 +149,7 @@ ggplot(df_with_grid_coords) +
   geom_rect(aes(xmin = start, xmax = end, ymin = 0, ymax = 20,
                 fill = average_sentiment)) +
   geom_text(aes(x = x_position, y = y_position, label = word, color = sentiment),
-            size = 6, alpha = .5, family = 'space') +
+            size = 4, alpha = .5, family = 'space') +
   facet_wrap(~play, nrow = 3) +
   scale_fill_scico(palette = 'glasgow') +
   scale_color_manual(values = c('#be9d1e','#DAD2FF'),
@@ -174,5 +174,5 @@ ggplot(df_with_grid_coords) +
        subtitle = "a sentiment analysis of dialogue in three plays by William Shakespeare") 
 
 
-ggsave('shakespeare_plays.png', width = 14, height = 16, dpi = 400)
+ggsave('shakespeare_plays.png', width = 14, height = 16, dpi = 300)
   
