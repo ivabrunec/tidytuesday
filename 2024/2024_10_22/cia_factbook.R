@@ -78,8 +78,8 @@ ggplot(cia_df, aes(x = name, y = value, group = country)) +
   theme(legend.position = 'none',
         strip.text = element_text(size = 4, color = 'white'),
         plot.background = element_rect(color = NA, fill = 'black'),
-        panel.background = element_rect(color = NA, fill = 'black'),
-        plot.title = element_text(size = 50, color = 'white')) +
+        panel.background = element_rect(color = 'grey20', fill = 'black'),
+        plot.title = element_text(size = 50)) +
   labs(title = '') # hack to add more space
 
 ggsave('map_geofacet.png', width = 14, height = 12)
