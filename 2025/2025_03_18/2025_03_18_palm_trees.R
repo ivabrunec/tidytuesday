@@ -148,7 +148,7 @@ ggplot() +
                color = "grey40", linewidth = 0.2) +
   coord_fixed() +
   scale_fill_identity() +
-  labs(title = "tropical tesselations",
+  labs(title = "tropical tessellations",
        subtitle = "1,796 palm tree fruit shapes & colors") +
   theme_void() +
   theme(legend.position = "none",
